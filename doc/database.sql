@@ -4,8 +4,7 @@ create table user
     id       integer primary key autoincrement,
     username text unique,
     password text,
-    role     int,
-    user_id  int
+    role     int check (role in (1, 2, 999))
 );
 -- 学院表
 create table faculty
