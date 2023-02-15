@@ -2,5 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.omoi.mapper.TeacherMapper">
+    <sql id="all_fields">
+        select teacher_id,
+               teacher_name,
+               teacher_gender,
+               teacher_birthday,
+               teacher_education,
+               teacher_rank,
+               teacher_register,
+               teacher_belong
+        from teacher
+    </sql>
 
+    <select id="getAllTeachers" resultType="com.omoi.entity.Teacher">
+        <include refid="all_fields"/>
+    </select>
+    <select id="getTeacherById" resultType="com.omoi.entity.Teacher">
+        <include refid="all_fields"/>
+        where teacher_id = #{teacherId}
+    </select>
 </mapper>

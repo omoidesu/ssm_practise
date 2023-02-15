@@ -17,9 +17,9 @@
 <html>
 <head>
     <title>用户登录</title>
-    <link rel="stylesheet" href="${base}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${base}/css/bootstrap.css">
     <link rel="stylesheet" href="${base}/css/login.css">
-    <script src="${base}/js/bootstrap.min.js"></script>
+    <script src="${base}/js/bootstrap.js"></script>
 </head>
 <body>
 <div class="container">

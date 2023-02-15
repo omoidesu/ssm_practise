@@ -1,5 +1,6 @@
 package com.omoi.controller.impl;
 
+import com.omoi.constant.UserRole;
 import com.omoi.controller.UserController;
 import com.omoi.entity.User;
 import com.omoi.service.UserService;
@@ -35,22 +36,23 @@ public class UserControllerImpl implements UserController {
      */
     @PostMapping("/user")
     public String login(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
-        User target = userService.loginAuthentication(username, password);
-        Integer code = target.getRole();
+        User targetUser = userService.loginAuthentication(username, password);
+        Integer code = targetUser.getRole();
 
         HttpSession session = request.getSession();
+
+        if (code == UserRole.ERROR) {
+            return "/login";
+        }
+        session.setAttribute("current", targetUser);
+
         switch (code) {
-            case User.ERROR:
-                return "/login";
-            case User.ADMIN:
-                session.setAttribute("current", target);
+            case UserRole.ADMIN:
                 return "redirect:/admin/showCourse";
-            case User.TEACHER:
-                session.setAttribute("current", target);
-                return "/teacher/showCourse";
-            case User.STUDENT:
-                session.setAttribute("current", target);
-                return "/student/showCourse";
+            case UserRole.TEACHER:
+                return "redirect:/teacher/showCourse";
+            case UserRole.STUDENT:
+                return "redirect:/student/showCourse";
             default:
                 return "/404";
         }
@@ -64,7 +66,7 @@ public class UserControllerImpl implements UserController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute("current", 0);
-        return "/login";
+        session.setAttribute("current", null);
+        return "redirect:/login";
     }
 }

@@ -2,5 +2,42 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.omoi.mapper.StudentMapper">
+    <sql id="all_fields">
+        select s.student_id, student_name, student_gender, student_birthday, student_register, student_belong
+        from student s
+    </sql>
+    <insert id="addNewStudent">
+        insert into student
+        values (#{studentId}, #{studentName}, #{studentGender}, #{studentBirthday}, #{studentRegister},
+                #{studentBelong})
+    </insert>
+    <update id="editStudent">
+        update student
+        set student_name     = #{studentName},
+            student_gender   = #{studentGender},
+            student_birthday = #{studentBirthday},
+            student_register = #{studentRegister},
+            student_belong   = #{studentBelong}
+        where student_id = #{studentId}
+    </update>
+    <delete id="deleteStudentById">
+        delete
+        from student
+        where student_id = #{id}
+    </delete>
+
+    <select id="getAllStudents" resultType="com.omoi.entity.Student">
+        <include refid="all_fields"/>
+    </select>
+    <select id="getStudentsByCourse" resultType="com.omoi.entity.Student">
+        select s.student_id, student_name, student_gender, student_birthday, student_register, student_belong
+        from score c
+                 left join student s on c.student_id = s.student_id
+        where c.course_id = #{courseId}
+    </select>
+    <select id="getStudentById" resultType="com.omoi.entity.Student">
+        <include refid="all_fields"/>
+        where student_id = #{studentId}
+    </select>
 
 </mapper>

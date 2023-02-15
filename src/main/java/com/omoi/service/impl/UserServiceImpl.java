@@ -1,5 +1,6 @@
 package com.omoi.service.impl;
 
+import com.omoi.constant.UserRole;
 import com.omoi.entity.User;
 import com.omoi.mapper.UserMapper;
 import com.omoi.service.UserService;
@@ -24,6 +25,6 @@ public class UserServiceImpl implements UserService {
      */
     public User loginAuthentication(String username, String password) {
         User targetUser = userMapper.getUserByUsername(username);
-        return targetUser != null ? targetUser : User.builder().role(User.ERROR).build();
+        return targetUser != null ? targetUser : User.builder().role(UserRole.ERROR).build();
     }
 }

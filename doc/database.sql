@@ -7,10 +7,10 @@ create table user
     role     int check (role in (1, 2, 999))
 );
 -- 学院表
-create table faculty
+create table academy
 (
-    id           integer primary key autoincrement,
-    faculty_name text
+    academy_id   integer primary key autoincrement,
+    academy_name text
 );
 -- 学生表
 create table student
@@ -50,8 +50,8 @@ create table course
 -- 成绩表
 create table score
 (
-    id         int primary key,
+    id         integer primary key autoincrement,
     course_id  int,
     student_id int,
     score      int
-)
+);

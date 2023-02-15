@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Teacher {
-    private Integer teacherId;
+    private String teacherId;
     private String teacherName;
     private String teacherGender;
     private String teacherBirthday;
