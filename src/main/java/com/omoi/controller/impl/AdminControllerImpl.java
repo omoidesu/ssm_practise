@@ -1,8 +1,10 @@
 package com.omoi.controller.impl;
 
+import com.omoi.constant.Gender;
 import com.omoi.controller.AdminController;
 import com.omoi.dto.Message;
 import com.omoi.entity.Course;
+import com.omoi.entity.Student;
 import com.omoi.service.AdminService;
 import com.omoi.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +58,7 @@ public class AdminControllerImpl implements AdminController {
 
     @DeleteMapping("/course")
     @ResponseBody
-    public Message deleteCourse(@RequestParam Integer courseId) {
+    public Message deleteCourse(Integer courseId) {
         return adminService.deleteCourse(courseId);
     }
 
@@ -85,17 +87,29 @@ public class AdminControllerImpl implements AdminController {
     }
 
     @DeleteMapping("/student")
+    @ResponseBody
     public Message deleteStudent(Integer studentId) {
-        return null;
+        return adminService.deleteStudent(studentId);
     }
 
-    @Override
-    public String editStudent(Map<String, String> params) {
-        return null;
+    @PostMapping("/student")
+    public String editStudent(@RequestParam Map<String, String> params) {
+        Student student = Student.builder()
+                .studentId(params.get("studentId"))
+                .studentName(params.get("studentName"))
+                .studentGender(Integer.parseInt(params.get("studentGender")) == Gender.MALE ? "男" : "女")
+                .studentBirthday(params.get("studentBirthday"))
+                .studentRegister(params.get("studentRegister"))
+                .studentBelong(params.get("studentBelong")).build();
+        adminService.editStudent(student);
+        return "/admin/showStudent";
     }
 
-    @Override
-    public String showStudentDetail(Integer id, HttpServletRequest request) {
-        return null;
+    @GetMapping("/student/{id}")
+    public String showStudentDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
+        Student targetStudent = commonService.getStudentById(id);
+
+        request.setAttribute("student", targetStudent);
+        return "/admin/student";
     }
 }

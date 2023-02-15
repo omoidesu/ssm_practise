@@ -52,11 +52,11 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public List<Student> getStudents(Integer courseId) {
+    public List<Student> getStudents(Integer courseId, String studentName) {
         if (courseId == null){
-            return studentMapper.getAllStudents();
+            return studentMapper.getStudents(studentName);
         }
-        return studentMapper.getStudentsByCourse(courseId);
+        return studentMapper.getStudentsByCourse(courseId, studentName);
     }
 
     @Override

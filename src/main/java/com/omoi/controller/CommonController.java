@@ -41,7 +41,7 @@ public interface CommonController {
      * @param courseId 课程id
      * @return 学生列表
      */
-    List<Student> getStudents(Integer courseId);
+    List<Student> getStudents(Integer courseId, String studentName);
 
     /**
      * 根据学生id获取学生信息

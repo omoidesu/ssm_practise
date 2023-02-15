@@ -1,8 +1,6 @@
 package com.omoi.controller;
 
 import com.omoi.dto.Message;
-import com.omoi.entity.Course;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;

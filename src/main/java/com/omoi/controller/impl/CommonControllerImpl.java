@@ -66,8 +66,10 @@ public class CommonControllerImpl implements CommonController {
      * @return 学生列表
      */
     @GetMapping("/student")
-    public List<Student> getStudents(@RequestParam(value = "course", required = false) Integer courseId) {
-        return commonService.getStudents(courseId);
+    public List<Student> getStudents(
+            @RequestParam(value = "course", required = false) Integer courseId,
+            @RequestParam(value = "name", required = false) String studentName) {
+        return commonService.getStudents(courseId, studentName);
     }
 
     /**

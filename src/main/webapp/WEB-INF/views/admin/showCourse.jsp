@@ -84,7 +84,8 @@
                             </div>
                         </div>
                         <div class="btn-group" role="group">
-                            <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/addCourse">添加课程信息<i class="fa-solid fa-plus"></i></a>
+                            <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/addCourse">添加课程信息<i
+                                    class="fa-solid fa-plus"></i></a>
                         </div>
                     </div>
                 </div>
@@ -163,16 +164,16 @@
         })
     }
 
-    function getNumbers(){
-        $.get("/course", null, function (result){
+    function getNumbers() {
+        $.get("/course", null, function (result) {
             $("#courseCount").text(result.length)
         })
 
-        $.get("/student", null, function (result){
+        $.get("/student", null, function (result) {
             $("#studentCount").text(result.length)
         })
 
-        $.get("/teacher", null, function (result){
+        $.get("/teacher", null, function (result) {
             $("#teacherCount").text(result.length)
         })
     }

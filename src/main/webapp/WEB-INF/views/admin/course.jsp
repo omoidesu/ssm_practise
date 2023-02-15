@@ -55,11 +55,11 @@
             <ul class="nav nav-pills nav-stacked">
 
                 <li class="active"><a href="${pageContext.request.contextPath}/admin/showCourse">课程管理<span
-                        class="badge pull-right">8</span></a></li>
+                        class="badge pull-right" id="courseCount"></span></a></li>
                 <li><a href="${pageContext.request.contextPath}/admin/showStudent">学生管理<span
-                        class="badge pull-right">8</span></a></li>
+                        class="badge pull-right" id="studentCount"></span></a></li>
                 <li><a href="${pageContext.request.contextPath}/admin/showTeacher">教师管理<span
-                        class="badge pull-right">8</span></a></li>
+                        class="badge pull-right" id="teacherCount"></span></a></li>
                 <li><a href="#">重置账号密码<i class="fa-solid fa-rotate-right pull-right"></i></a></li>
                 <li><a href="#">修改密码<i class="fa-solid fa-pen-to-square pull-right"></i></a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">退出系统<i
@@ -75,7 +75,8 @@
                 </div>
                 <div class="panel-body">
                     <%--表单--%>
-                    <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/admin/course">
+                    <form class="form-horizontal" method="post"
+                          action="${pageContext.request.contextPath}/admin/course">
                         <div class="form-group">
                             <label for="courseId" class="col-sm-2 control-label">课程号</label>
                             <div class="col-sm-10">
@@ -203,6 +204,7 @@
         getTeachers()
         getAcademies()
         changeDefaultSelect()
+        getNumbers()
     })
 
     function getTeachers() {
@@ -225,16 +227,30 @@
         })
     }
 
-    function changeDefaultSelect(){
+    function changeDefaultSelect() {
         let courseId = $("#courseId").val()
-        if (courseId != null){
-            $.get("/course/" + courseId, null, function (result){
+        if (courseId != null) {
+            $.get("/course/" + courseId, null, function (result) {
                 $("#courseTeacher").val(result.teacherId)
                 $("#courseDate").val(result.courseDate)
                 $("#courseType").val(result.courseType)
                 $("#courseBelong").val(result.courseBelong)
             })
         }
+    }
+
+    function getNumbers() {
+        $.get("/course", null, function (result) {
+            $("#courseCount").text(result.length)
+        })
+
+        $.get("/student", null, function (result) {
+            $("#studentCount").text(result.length)
+        })
+
+        $.get("/teacher", null, function (result) {
+            $("#teacherCount").text(result.length)
+        })
     }
 </script>
 </html>

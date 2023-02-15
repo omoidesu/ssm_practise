@@ -18,7 +18,7 @@ public interface CommonService {
 
     Course getCourseById(Integer courseId);
 
-    List<Student> getStudents(Integer courseId);
+    List<Student> getStudents(Integer courseId, String studentName);
 
     Student getStudentById(Integer studentId);
 

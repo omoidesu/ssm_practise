@@ -10,7 +10,7 @@ public interface StudentMapper {
      *
      * @return 学生列表
      */
-    List<Student> getAllStudents();
+    List<Student> getStudents(String studentName);
 
     /**
      * 根据课程id获取学生列表，当课程id为null时获取全部学生
@@ -18,7 +18,7 @@ public interface StudentMapper {
      * @param courseId 课程id
      * @return 学生列表
      */
-    List<Student> getStudentsByCourse(Integer courseId);
+    List<Student> getStudentsByCourse(Integer courseId, String studentName);
 
     /**
      * 根据学号获取学生信息

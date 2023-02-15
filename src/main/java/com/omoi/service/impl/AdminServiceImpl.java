@@ -3,6 +3,7 @@ package com.omoi.service.impl;
 import com.omoi.constant.MessageCode;
 import com.omoi.dto.Message;
 import com.omoi.entity.Course;
+import com.omoi.entity.Student;
 import com.omoi.mapper.CourseMapper;
 import com.omoi.mapper.StudentMapper;
 import com.omoi.mapper.TeacherMapper;
@@ -16,9 +17,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AdminServiceImpl implements AdminService {
-    private CourseMapper courseMapper;
-    private StudentMapper studentMapper;
-    private TeacherMapper teacherMapper;
+    private final CourseMapper courseMapper;
+    private final StudentMapper studentMapper;
+    private final TeacherMapper teacherMapper;
 
     @Autowired
     public AdminServiceImpl(CourseMapper courseMapper, StudentMapper studentMapper, TeacherMapper teacherMapper) {
@@ -43,22 +44,37 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void editCourse(Course course) {
-        Integer i = 0;
-        Message message = new Message();
         Course tempCourse = courseMapper.getCourseById(Integer.parseInt(course.getCourseId()));
 
-        try {
-            if (tempCourse != null){
-                i = courseMapper.editCourse(course);
-            } else {
-                i = courseMapper.addNewCourse(course);
-            }
+        if (tempCourse != null) {
+            courseMapper.editCourse(course);
+        } else {
+            courseMapper.addNewCourse(course);
+        }
+    }
 
+    @Override
+    public Message deleteStudent(Integer studentId) {
+        Message message = new Message();
+        try {
+            Integer i = studentMapper.deleteStudentById(studentId);
             message.setCode(i == 1 ? MessageCode.SUCCESS : MessageCode.ERROR);
-            message.setMsg(i == 1 ? "success" : "unknown error");
+            message.setMsg(i == 1 ? "success" : "sql error: unknown reason");
         } catch (Exception e) {
             message.setCode(MessageCode.ERROR);
             message.setMsg(e.getMessage());
+        }
+        return message;
+    }
+
+    @Override
+    public void editStudent(Student student) {
+        Student tempStudent = studentMapper.getStudentById(Integer.parseInt(student.getStudentId()));
+
+        if (tempStudent != null){
+            studentMapper.editStudent(student);
+        } else {
+            studentMapper.addNewStudent(student);
         }
     }
 }
