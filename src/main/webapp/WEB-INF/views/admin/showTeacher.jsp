@@ -67,8 +67,8 @@
                 <li><a href="${pageContext.request.contextPath}/admin/showStudent">学生管理<span
                         class="badge pull-right" id="studentCount"></span></a></li>
                 <li class="active"><a href="#">教师管理<span class="badge pull-right" id="teacherCount"></span></a></li>
-                <li><a href="#">重置账号密码<i class="fa-solid fa-rotate-right pull-right"></i></a></li>
-                <li><a href="#">修改密码<i class="fa-solid fa-pen-to-square pull-right"></i></a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/changeOther">重置账号密码<i class="fa-solid fa-rotate-right pull-right"></i></a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/changePassword">修改密码<i class="fa-solid fa-pen-to-square pull-right"></i></a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">退出系统<i
                         class="fa-solid fa-arrow-right-from-bracket pull-right"></i></a></li>
             </ul>
@@ -84,14 +84,14 @@
                         <div class="btn-group" role="group">
                             <div class="input-group" style="display: inline-block; width: 300px">
                                 <input type="text" class="form-control" placeholder="请输入教师姓名"
-                                       style="width: 240px">
+                                       style="width: 240px" id="search">
                                 <span class="input-group-btn" style="margin: 0; padding: 0"><button
                                         class="btn btn-default"
-                                        type="button">搜索</button></span>
+                                        type="button" id="searchBtn">搜索</button></span>
                             </div>
                         </div>
                         <div class="btn-group" role="group">
-                            <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/addStudent">添加学生信息<i class="fa-solid fa-plus"></i></a>
+                            <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/addTeacher">添加教师信息<i class="fa-solid fa-plus"></i></a>
                         </div>
                     </div>
                 </div>
@@ -107,12 +107,11 @@
 <script>
     $(function () {
         $("#table").bootstrapTable({
-            url: "/student",
+            url: "/teacher",
             method: "get",
             queryParams: function () {
                 return {
                     name: $("#search").val(),
-                    teacher: 0
                 }
             },
             sidePagination: "client",
@@ -124,13 +123,15 @@
             paginationLoop: false,
             uniqueId: "courseId",
             columns: [
-                {field: "studentId", title: "学号", sortable: true},
-                {field: "studentName", title: "姓名"},
-                {field: "studentGender", title: "性别"},
-                {field: "studentBirthday", title: "出生年份"},
-                {field: "studentRegister", title: "入学时间"},
-                {field: "studentBelong", title: "学院", sortable: true},
-                {field: "courseId", title: "操作", formatter: operate},
+                {field: "teacherId", title: "教师编号", sortable: true},
+                {field: "teacherName", title: "姓名"},
+                {field: "teacherGender", title: "性别"},
+                {field: "teacherBirthday", title: "出生年份"},
+                {field: "teacherEducation", title: "学历"},
+                {field: "teacherRank", title: "职称"},
+                {field: "teacherRegister", title: "入职年份"},
+                {field: "teacherBelong", title: "学院", sortable: true},
+                {field: "teacherId", title: "操作", formatter: operate},
             ]
         })
 
@@ -151,12 +152,12 @@
     })
 
     function operate(value, row, _) {
-        return "<a class='btn btn-primary' href='/admin/student/" + value + "'>修改</a>&nbsp;&nbsp;<button class='btn btn-danger' onclick=del(" + value + ")>删除</button>"
+        return "<a class='btn btn-primary' href='/admin/teacher/" + value + "'>修改</a>&nbsp;&nbsp;<button class='btn btn-danger' onclick=del(" + value + ")>删除</button>"
     }
 
     function del(id) {
         $.ajax({
-            url: "/admin/student?courseId=" + id,
+            url: "/admin/teacher?teacherId=" + id,
             type: "delete",
             success: function (result) {
                 console.log(result.msg)

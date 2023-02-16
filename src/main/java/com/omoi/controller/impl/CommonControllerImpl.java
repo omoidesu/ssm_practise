@@ -89,8 +89,8 @@ public class CommonControllerImpl implements CommonController {
      * @return 教师列表
      */
     @GetMapping("/teacher")
-    public List<Teacher> getTeachers() {
-        return commonService.getTeachers();
+    public List<Teacher> getTeachers(@RequestParam(value = "name", required = false) String teacherName) {
+        return commonService.getTeachers(teacherName);
     }
 
     /**

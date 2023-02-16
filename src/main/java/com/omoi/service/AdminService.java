@@ -3,6 +3,7 @@ package com.omoi.service;
 import com.omoi.dto.Message;
 import com.omoi.entity.Course;
 import com.omoi.entity.Student;
+import com.omoi.entity.Teacher;
 
 /**
  * @author xingj
@@ -16,4 +17,12 @@ public interface AdminService {
     Message deleteStudent(Integer studentId);
 
     void editStudent(Student student);
+
+    Message deleteTeacher(Integer teacherId);
+
+    void editTeacher(Teacher teacher);
+
+    Message changePassword(String username, String password);
+
+    Message userExist(String username);
 }

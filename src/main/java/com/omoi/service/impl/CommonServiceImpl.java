@@ -20,10 +20,10 @@ import java.util.List;
  */
 @Service
 public class CommonServiceImpl implements CommonService {
-    private AcademyMapper academyMapper;
-    private CourseMapper courseMapper;
-    private StudentMapper studentMapper;
-    private TeacherMapper teacherMapper;
+    private final AcademyMapper academyMapper;
+    private final CourseMapper courseMapper;
+    private final StudentMapper studentMapper;
+    private final TeacherMapper teacherMapper;
 
     @Autowired
     public CommonServiceImpl(AcademyMapper academyMapper, CourseMapper courseMapper, StudentMapper studentMapper, TeacherMapper teacherMapper) {
@@ -65,8 +65,8 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public List<Teacher> getTeachers() {
-        return teacherMapper.getAllTeachers();
+    public List<Teacher> getTeachers(String teacherName) {
+        return teacherMapper.getTeachers(teacherName);
     }
 
     @Override

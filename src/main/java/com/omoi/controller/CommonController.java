@@ -1,5 +1,6 @@
 package com.omoi.controller;
 
+import com.omoi.dto.Message;
 import com.omoi.entity.Academy;
 import com.omoi.entity.Course;
 import com.omoi.entity.Student;
@@ -56,7 +57,7 @@ public interface CommonController {
      *
      * @return 教师列表
      */
-    List<Teacher> getTeachers();
+    List<Teacher> getTeachers(String teacherName);
 
     /**
      * 根据教师id获取教师信息

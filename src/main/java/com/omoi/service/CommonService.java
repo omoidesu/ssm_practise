@@ -22,7 +22,7 @@ public interface CommonService {
 
     Student getStudentById(Integer studentId);
 
-    List<Teacher> getTeachers();
+    List<Teacher> getTeachers(String teacherName);
 
     Teacher getTeacherById(Integer teacherId);
 }

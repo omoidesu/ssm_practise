@@ -1,6 +1,7 @@
 package com.omoi.mapper;
 
 import com.omoi.entity.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -12,4 +13,6 @@ public interface UserMapper {
      * @return 用户对象
      */
     User getUserByUsername(String username);
+
+    Integer changePassword(User user);
 }

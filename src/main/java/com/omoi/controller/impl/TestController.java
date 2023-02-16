@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class TestController {
     // FIXME 2023/2/15 a controller for testing, delete when the project complete
-    
+
     @GetMapping("/course")
     public String testCourse() {
         return "admin/course";
@@ -26,5 +26,15 @@ public class TestController {
     @GetMapping("/teacher")
     public String teacher() {
         return "admin/teacher";
+    }
+
+    @GetMapping("/password")
+    public String password() {
+        return "/admin/password";
+    }
+
+    @GetMapping("/self")
+    public String selfPassword(){
+        return "/admin/selfPassword";
     }
 }

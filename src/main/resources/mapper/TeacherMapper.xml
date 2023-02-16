@@ -13,9 +13,34 @@
                teacher_belong
         from teacher
     </sql>
+    <insert id="addNewTeacher">
+        insert into teacher
+        values (#{teacherId}, #{teacherName}, #{teacherGender}, #{teacherBirthday}, #{teacherEducation}, #{teacherRank},
+                #{teacherRegister}, #{teacherBelong})
+    </insert>
+    <update id="editTeacher">
+        update teacher
+        set teacher_name      = #{teacherName},
+            teacher_gender    = #{teacherGender},
+            teacher_birthday  = #{teacherBirthday},
+            teacher_education = #{teacherEducation},
+            teacher_rank      = #{teacherRank},
+            teacher_register  = #{teacherRegister},
+            teacher_belong    = #{teacherBelong}
+        where teacher_Id = #{teacherId}
+    </update>
+    <delete id="deleteTeacherById">
+        delete
+        from teacher
+        where teacher_id = #{teacherId}
+    </delete>
 
-    <select id="getAllTeachers" resultType="com.omoi.entity.Teacher">
+    <select id="getTeachers" resultType="com.omoi.entity.Teacher">
         <include refid="all_fields"/>
+        where 1=1
+        <if test="teacherId != null">
+            and teacher_name like '%'||#{teacherName}||'%'
+        </if>
     </select>
     <select id="getTeacherById" resultType="com.omoi.entity.Teacher">
         <include refid="all_fields"/>

@@ -60,8 +60,8 @@
                 <li class="active"><a href="#">学生管理<span class="badge pull-right" id="studentCount"></span></a></li>
                 <li><a href="${pageContext.request.contextPath}/admin/showTeacher">教师管理<span
                         class="badge pull-right" id="teacherCount"></span></a></li>
-                <li><a href="#">重置账号密码<i class="fa-solid fa-rotate-right pull-right"></i></a></li>
-                <li><a href="#">修改密码<i class="fa-solid fa-pen-to-square pull-right"></i></a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/changeOther">重置账号密码<i class="fa-solid fa-rotate-right pull-right"></i></a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/changePassword">修改密码<i class="fa-solid fa-pen-to-square pull-right"></i></a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">退出系统<i
                         class="fa-solid fa-arrow-right-from-bracket pull-right"></i></a></li>
             </ul>

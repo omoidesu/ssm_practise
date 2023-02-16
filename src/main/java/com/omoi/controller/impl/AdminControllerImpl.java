@@ -1,10 +1,14 @@
 package com.omoi.controller.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omoi.constant.Gender;
 import com.omoi.controller.AdminController;
 import com.omoi.dto.Message;
 import com.omoi.entity.Course;
 import com.omoi.entity.Student;
+import com.omoi.entity.Teacher;
+import com.omoi.entity.User;
 import com.omoi.service.AdminService;
 import com.omoi.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @RequestMapping("/admin")
@@ -41,6 +46,16 @@ public class AdminControllerImpl implements AdminController {
         return "admin/showTeacher";
     }
 
+    @GetMapping("/changeOther")
+    public String changeOther() {
+        return "/admin/password";
+    }
+
+    @GetMapping("/changePassword")
+    public String changePassword() {
+        return "/admin/selfPassword";
+    }
+
     @GetMapping("/addCourse")
     public String addCourse() {
         return "admin/course";
@@ -62,7 +77,10 @@ public class AdminControllerImpl implements AdminController {
         return adminService.deleteCourse(courseId);
     }
 
-    @PostMapping("/course")
+    /**
+     * @deprecated user Course class at formal parameter for auto create a teacher object
+     */
+    @Deprecated
     public String editCourse(@RequestParam Map<String, String> params) {
         Course course = Course.builder()
                 .courseId(params.get("courseId"))
@@ -74,6 +92,12 @@ public class AdminControllerImpl implements AdminController {
                 .courseType(params.get("courseType"))
                 .courseBelong(params.get("courseBelong"))
                 .coursePoint(params.get("coursePoint")).build();
+        adminService.editCourse(course);
+        return "/admin/showCourse";
+    }
+
+    @PostMapping("/course")
+    public String editCourse(Course course) {
         adminService.editCourse(course);
         return "/admin/showCourse";
     }
@@ -92,7 +116,10 @@ public class AdminControllerImpl implements AdminController {
         return adminService.deleteStudent(studentId);
     }
 
-    @PostMapping("/student")
+    /**
+     * @deprecated user Student class at formal parameter for auto create a teacher object
+     */
+    @Deprecated
     public String editStudent(@RequestParam Map<String, String> params) {
         Student student = Student.builder()
                 .studentId(params.get("studentId"))
@@ -105,11 +132,89 @@ public class AdminControllerImpl implements AdminController {
         return "/admin/showStudent";
     }
 
+    @PostMapping("/student")
+    public String editStudent(Student student) {
+        adminService.editStudent(student);
+        return "/admin/showStudent";
+    }
+
     @GetMapping("/student/{id}")
     public String showStudentDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
         Student targetStudent = commonService.getStudentById(id);
 
         request.setAttribute("student", targetStudent);
         return "/admin/student";
+    }
+
+    @DeleteMapping("/teacher")
+    @ResponseBody
+    public Message deleteTeacher(Integer teacherId) {
+        return adminService.deleteTeacher(teacherId);
+    }
+
+    /**
+     * @deprecated user Teacher class at formal parameter for auto create a teacher object
+     */
+    @Deprecated
+    public String editTeacher(@RequestParam Map<String, String> params) {
+        Teacher teacher = Teacher.builder()
+                .teacherId(params.get("teacherId"))
+                .teacherName(params.get("teacherName"))
+                .teacherGender(Integer.parseInt(params.get("teacherGender")) == Gender.MALE ? "男" : "女")
+                .teacherBirthday(params.get("teacherBirthday"))
+                .teacherEducation(params.get("teacherEducation"))
+                .teacherRank(params.get("teacherRank"))
+                .teacherRegister(params.get("teacherRegister"))
+                .teacherBelong(params.get("teacherBelong")).build();
+        adminService.editTeacher(teacher);
+        return "/admin/showTeacher";
+    }
+
+    @PostMapping("/teacher")
+    public String editTeacher(Teacher teacher) {
+        adminService.editTeacher(teacher);
+        return "/admin/showTeacher";
+    }
+
+    @GetMapping("/teacher/{id}")
+    public String showTeacherDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
+        Teacher targetTeacher = commonService.getTeacherById(id);
+
+        request.setAttribute("teacher", targetTeacher);
+        return "/admin/teacher";
+    }
+
+    @PostMapping("/password")
+    public String changeAccountPassword(@RequestParam(value = "username", required = false) String username, @RequestParam(value = "password") String password, HttpServletRequest request) {
+        boolean usernameIsNull = false;
+
+        if (username == null) {
+            HttpSession session = request.getSession();
+            User current = (User) session.getAttribute("current");
+            username = current.getUsername();
+            usernameIsNull = true;
+        }
+
+        Message message = adminService.changePassword(username, password);
+
+        if (usernameIsNull) {
+            return "redirect:/logout";
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        String messageString = "";
+        try {
+            messageString = mapper.writeValueAsString(message);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        request.setAttribute("message", messageString);
+        return "/admin/password";
+    }
+
+    @GetMapping("/user")
+    @ResponseBody
+    public Message userIfExist(String username) {
+        return adminService.userExist(username);
     }
 }
