@@ -46,5 +46,4 @@
         <include refid="all_fields"/>
         where student_id = #{studentId}
     </select>
-
 </mapper>

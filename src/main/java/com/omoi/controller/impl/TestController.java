@@ -37,4 +37,9 @@ public class TestController {
     public String selfPassword(){
         return "/admin/selfPassword";
     }
+
+    @GetMapping("/teacher/course")
+    public String teacherCourse(){
+        return "/teacher/showCourse";
+    }
 }

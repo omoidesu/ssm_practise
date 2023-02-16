@@ -142,7 +142,7 @@
         }
     })
 
-    function operate(value, row, _) {
+    function operate(value, _, _) {
         return "<a class='btn btn-primary' href='/admin/student/" + value + "'>修改</a>&nbsp;&nbsp;<button class='btn btn-danger' onclick=del(" + value + ")>删除</button>"
     }
 

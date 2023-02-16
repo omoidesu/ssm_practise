@@ -6,14 +6,14 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author xingj
- * @create 2023/2/15 16:13
+ * @create 2023/2/16 13:44
  */
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Message {
-    private int code;
-    private String msg;
-    private Object data;
+public class StudentScoreDto {
+    private String courseId;
+    private String studentId;
+    private String studentName;
+    private String score;
 }

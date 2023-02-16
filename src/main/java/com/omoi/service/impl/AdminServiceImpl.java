@@ -2,7 +2,7 @@ package com.omoi.service.impl;
 
 import com.omoi.constant.Gender;
 import com.omoi.constant.MessageCode;
-import com.omoi.dto.Message;
+import com.omoi.dto.MessageDto;
 import com.omoi.entity.Course;
 import com.omoi.entity.Student;
 import com.omoi.entity.Teacher;
@@ -12,6 +12,7 @@ import com.omoi.mapper.StudentMapper;
 import com.omoi.mapper.TeacherMapper;
 import com.omoi.mapper.UserMapper;
 import com.omoi.service.AdminService;
+import com.omoi.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +36,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Message deleteCourse(Integer courseId) {
-        Message message = new Message();
+    public MessageDto deleteCourse(Integer courseId) {
+        MessageDto message = new MessageDto();
         try {
             Integer i = courseMapper.deleteCourseById(courseId);
             message.setCode(i == 1 ? MessageCode.SUCCESS : MessageCode.ERROR);
@@ -60,8 +61,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Message deleteStudent(Integer studentId) {
-        Message message = new Message();
+    public MessageDto deleteStudent(Integer studentId) {
+        MessageDto message = new MessageDto();
         try {
             Integer i = studentMapper.deleteStudentById(studentId);
             message.setCode(i == 1 ? MessageCode.SUCCESS : MessageCode.ERROR);
@@ -86,8 +87,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Message deleteTeacher(Integer teacherId) {
-        Message message = new Message();
+    public MessageDto deleteTeacher(Integer teacherId) {
+        MessageDto message = new MessageDto();
         try {
             Integer i = teacherMapper.deleteTeacherById(teacherId);
             message.setCode(i == 1 ? MessageCode.SUCCESS : MessageCode.ERROR);
@@ -112,22 +113,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Message changePassword(String username, String password) {
-        Message message = new Message();
-        try {
-            Integer i = userMapper.changePassword(User.builder().username(username).password(password).build());
-            message.setCode(i == 1 ? MessageCode.SUCCESS : MessageCode.ERROR);
-            message.setMsg(i == 1 ? "success" : "sql error: unknown reason");
-        } catch (Exception e) {
-            message.setCode(MessageCode.ERROR);
-            message.setMsg(e.getMessage());
-        }
-        return message;
+    public MessageDto changePassword(String username, String password) {
+        return CommonService.changePassword(username, password, userMapper);
     }
 
     @Override
-    public Message userExist(String username) {
-        Message message = new Message();
+    public MessageDto userExist(String username) {
+        MessageDto message = new MessageDto();
         try {
             User user = userMapper.getUserByUsername(username);
             message.setCode(MessageCode.SUCCESS);

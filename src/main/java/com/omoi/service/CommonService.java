@@ -1,9 +1,9 @@
 package com.omoi.service;
 
-import com.omoi.entity.Academy;
-import com.omoi.entity.Course;
-import com.omoi.entity.Student;
-import com.omoi.entity.Teacher;
+import com.omoi.constant.MessageCode;
+import com.omoi.dto.MessageDto;
+import com.omoi.entity.*;
+import com.omoi.mapper.UserMapper;
 
 import java.util.List;
 
@@ -25,4 +25,17 @@ public interface CommonService {
     List<Teacher> getTeachers(String teacherName);
 
     Teacher getTeacherById(Integer teacherId);
+
+    public static MessageDto changePassword(String username, String password, UserMapper userMapper){
+        MessageDto message = new MessageDto();
+        try {
+            Integer i = userMapper.changePassword(User.builder().username(username).password(password).build());
+            message.setCode(i == 1 ? MessageCode.SUCCESS : MessageCode.ERROR);
+            message.setMsg(i == 1 ? "success" : "sql error: unknown reason");
+        } catch (Exception e) {
+            message.setCode(MessageCode.ERROR);
+            message.setMsg(e.getMessage());
+        }
+        return message;
+    }
 }

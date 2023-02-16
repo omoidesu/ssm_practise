@@ -1,6 +1,5 @@
 package com.omoi.controller;
 
-import com.omoi.dto.Message;
 import com.omoi.entity.Academy;
 import com.omoi.entity.Course;
 import com.omoi.entity.Student;

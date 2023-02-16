@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omoi.constant.Gender;
 import com.omoi.controller.AdminController;
-import com.omoi.dto.Message;
+import com.omoi.dto.MessageDto;
 import com.omoi.entity.Course;
 import com.omoi.entity.Student;
 import com.omoi.entity.Teacher;
@@ -73,7 +73,7 @@ public class AdminControllerImpl implements AdminController {
 
     @DeleteMapping("/course")
     @ResponseBody
-    public Message deleteCourse(Integer courseId) {
+    public MessageDto deleteCourse(Integer courseId) {
         return adminService.deleteCourse(courseId);
     }
 
@@ -112,7 +112,7 @@ public class AdminControllerImpl implements AdminController {
 
     @DeleteMapping("/student")
     @ResponseBody
-    public Message deleteStudent(Integer studentId) {
+    public MessageDto deleteStudent(Integer studentId) {
         return adminService.deleteStudent(studentId);
     }
 
@@ -148,7 +148,7 @@ public class AdminControllerImpl implements AdminController {
 
     @DeleteMapping("/teacher")
     @ResponseBody
-    public Message deleteTeacher(Integer teacherId) {
+    public MessageDto deleteTeacher(Integer teacherId) {
         return adminService.deleteTeacher(teacherId);
     }
 
@@ -190,12 +190,12 @@ public class AdminControllerImpl implements AdminController {
 
         if (username == null) {
             HttpSession session = request.getSession();
-            User current = (User) session.getAttribute("current");
-            username = current.getUsername();
+            User currentUser = (User) session.getAttribute("current");
+            username = currentUser.getUsername();
             usernameIsNull = true;
         }
 
-        Message message = adminService.changePassword(username, password);
+        MessageDto message = adminService.changePassword(username, password);
 
         if (usernameIsNull) {
             return "redirect:/logout";
@@ -214,7 +214,7 @@ public class AdminControllerImpl implements AdminController {
 
     @GetMapping("/user")
     @ResponseBody
-    public Message userIfExist(String username) {
+    public MessageDto userIfExist(String username) {
         return adminService.userExist(username);
     }
 }

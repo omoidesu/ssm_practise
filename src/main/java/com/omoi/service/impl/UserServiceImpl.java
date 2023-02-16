@@ -7,6 +7,8 @@ import com.omoi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
@@ -25,6 +27,18 @@ public class UserServiceImpl implements UserService {
      */
     public User loginAuthentication(String username, String password) {
         User targetUser = userMapper.getUserByUsername(username);
-        return targetUser != null ? targetUser : User.builder().role(UserRole.ERROR).build();
+        if (password == null){
+            return User.builder().role(UserRole.ERROR).build();
+        }
+
+        if (targetUser == null){
+            return User.builder().role(UserRole.NO_USER).build();
+        }
+
+        if (targetUser.getPassword().equals(password)){
+            return targetUser;
+        }
+
+        return  User.builder().role(UserRole.ERROR).build();
     }
 }
