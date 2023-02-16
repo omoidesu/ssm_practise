@@ -10,8 +10,10 @@
                teacher_education,
                teacher_rank,
                teacher_register,
-               teacher_belong
+               teacher_belong,
+               academy_name
         from teacher
+                 left join academy on teacher_belong = academy_id
     </sql>
     <insert id="addNewTeacher">
         insert into teacher

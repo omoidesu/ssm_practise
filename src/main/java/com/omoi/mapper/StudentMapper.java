@@ -1,9 +1,11 @@
 package com.omoi.mapper;
 
 import com.omoi.entity.Student;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface StudentMapper {
     /**
      * 获取学生列表

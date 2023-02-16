@@ -9,44 +9,80 @@ insert into course values (2302, '高等数学', 'Friday', '8-203', 18, 1, 6, 10
 insert into course values (2103, '英语', 'Tuesday', '6-105', 18, 1, 6, 1005, 1);
 insert into course values (2404, '通信原理', 'Tuesday', '9-304', 16, 1, 4, 1007, 4);
 insert into course values (2405, '信号与系统', 'Thursday', '9-501', 16, 1, 5, 1008, 4);
-insert into course values (2106, 'C语言程序设计', 'Wednesday', '5-106', 15, 0, 4, 1004, 1);
-insert into course values (2107, '数据结构与算法', 'Wednesday', '5-204', 16, 0, 5, 1002, 1);
-insert into course values (2208, '数学分析', 'Friday', '6-303', 15, 1, 6, 1006, 2);
-insert into course values (2509, '专业英语', 'Thursday', '6-204', 15, 1, 5, 1005, 5);
-insert into course values (2010, '日语(选修)', 'Monday', '6-103', 8, 0, 3, 1005, 3);
-insert into course values (2111, '操作系统', 'Thursday', '8-303', 10, 1, 4, 1002, 1);
-insert into course values (2112, 'python基础', 'Friday', '5-101', 8, 0, 2, 1004, 1);
-insert into course values (2413, 'matlab仿真', 'Monday', '9-202', 8, 0, 3, 1007, 4);
+insert into course
+values (2106, 'C语言程序设计', 'Wednesday', '5-106', 15, 0, 4, 1004, 1);
+insert into course
+values (2107, '数据结构与算法', 'Wednesday', '5-204', 16, 0, 5, 1002, 1);
+insert into course
+values (2208, '数学分析', 'Friday', '6-303', 15, 1, 6, 1006, 2);
+insert into course
+values (2509, '专业英语', 'Thursday', '6-204', 15, 1, 5, 1005, 5);
+insert into course
+values (2010, '日语(选修)', 'Monday', '6-103', 8, 0, 3, 1005, 3);
+insert into course
+values (2111, '操作系统', 'Thursday', '8-303', 10, 1, 4, 1002, 1);
+insert into course
+values (2112, 'python基础', 'Friday', '5-101', 8, 0, 2, 1004, 1);
+insert into course
+values (2413, 'matlab仿真', 'Monday', '9-202', 8, 0, 3, 1007, 4);
 
-insert into score values (1, 2201, 10005, 75);
-insert into score values (2, 2201, 10010, 'None');
-insert into score values (3, 2302, 10006, 60);
-insert into score values (4, 2103, 10002, 80);
-insert into score values (5, 2103, 10003, 61);
-insert into score values (6, 2103, 10007, 'None');
-insert into score values (7, 2103, 10009, 'None');
-insert into score values (8, 2106, 10002, 'None');
-insert into score values (9, 2106, 10003, 'None');
-insert into score values (10, 2106, 10007, 'None');
-insert into score values (11, 2106, 10009, 'None');
-insert into score values (12, 2107, 10002, 'None');
-insert into score values (13, 2107, 10003, 'None');
-insert into score values (14, 2107, 10007, 'None');
-insert into score values (15, 2107, 10009, 'None');
-insert into score values (16, 2112, 10002, 'None');
-insert into score values (17, 2112, 10003, 'None');
-insert into score values (18, 2112, 10007, 'None');
-insert into score values (19, 2112, 10009, 'None');
-insert into score values (20, 2404, 10001, 80);
-insert into score values (21, 2404, 10008, 71);
-insert into score values (22, 2405, 10001, 73);
-insert into score values (23, 2405, 10008, 59);
+insert into score
+values (1, 2201, 10005, 75);
+insert into score
+values (2, 2201, 10010, '');
+insert into score
+values (3, 2302, 10006, 60);
+insert into score
+values (4, 2103, 10002, 80);
+insert into score
+values (5, 2103, 10003, 61);
+insert into score
+values (6, 2103, 10007, '');
+insert into score
+values (7, 2103, 10009, '');
+insert into score
+values (8, 2106, 10002, '');
+insert into score
+values (9, 2106, 10003, '');
+insert into score
+values (10, 2106, 10007, '');
+insert into score
+values (11, 2106, 10009, '');
+insert into score
+values (12, 2107, 10002, '');
+insert into score
+values (13, 2107, 10003, '');
+insert into score
+values (14, 2107, 10007, '');
+insert into score
+values (15, 2107, 10009, '');
+insert into score
+values (16, 2112, 10002, '');
+insert into score
+values (17, 2112, 10003, '');
+insert into score
+values (18, 2112, 10007, '');
+insert into score
+values (19, 2112, 10009, '');
+insert into score
+values (20, 2404, 10001, 80);
+insert into score
+values (21, 2404, 10008, 71);
+insert into score
+values (22, 2405, 10001, 73);
+insert into score
+values (23, 2405, 10008, 59);
 
-insert into student values (10001, '谭之平', '男', '1995-04-23', '2014-09-01', 4);
-insert into student values (10002, '陈安成', '男', '2000-05-03', '2019-09-01', 1);
-insert into student values (10003, '张晓山', '男', '2000-04-09', '2019-09-01', 1);
-insert into student values (10004, '徐天珍', '女', '1996-02-17', '2016-09-01', 5);
-insert into student values (10005, '燕玉婷', '女', '1994-09-14', '2014-09-01', 2);
+insert into student
+values (10001, '谭之平', '男', '1995-04-23', '2014-09-01', 4);
+insert into student
+values (10002, '陈安成', '男', '2000-05-03', '2019-09-01', 1);
+insert into student
+values (10003, '张晓山', '男', '2000-04-09', '2019-09-01', 1);
+insert into student
+values (10004, '徐天珍', '女', '1996-02-17', '2016-09-01', 5);
+insert into student
+values (10005, '燕玉婷', '女', '1994-09-14', '2014-09-01', 2);
 insert into student values (10006, '任少楠', '男', '1994-10-25', '2015-09-01', 3);
 insert into student values (10007, '修奇', '男', '1999-11-01', '2017-09-01', 1);
 insert into student values (10008, '徐秀艳', '女', '1998-12-16', '2018-09-01', 4);

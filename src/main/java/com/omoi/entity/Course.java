@@ -19,4 +19,10 @@ public class Course {
     private String coursePoint;
     private String teacherId;
     private String courseBelong;
+
+    // 以下两个字段不属于表 course
+    private String score;
+    private String selected;
+    private String academyName;
+    private String teacherName;
 }

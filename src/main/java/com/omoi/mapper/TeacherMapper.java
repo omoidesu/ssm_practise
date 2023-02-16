@@ -1,9 +1,11 @@
 package com.omoi.mapper;
 
 import com.omoi.entity.Teacher;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface TeacherMapper {
     /**
      * 获取所有教师

@@ -127,7 +127,7 @@
             columns: [
                 {field: "courseId", title: "课程号", sortable: true},
                 {field: "courseName", title: "课程名称"},
-                {field: "teacherId", title: "授课老师编号"},
+                {field: "teacherName", title: "授课老师"},
                 {field: "courseDate", title: "上课时间"},
                 {field: "courseAddress", title: "上课地点"},
                 {field: "courseTimes", title: "周数", sortable: true},

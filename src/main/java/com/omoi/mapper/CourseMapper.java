@@ -2,9 +2,11 @@ package com.omoi.mapper;
 
 import com.omoi.entity.Course;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface CourseMapper {
     /**
      * 获取所有课程列表
@@ -36,7 +38,6 @@ public interface CourseMapper {
      * @param id 课程id
      * @return 修改条数
      */
-    // TODO: 将删除操作修改为逻辑删除
     Integer deleteCourseById(Integer id);
 
     /**
@@ -54,4 +55,8 @@ public interface CourseMapper {
      * @return 修改条数
      */
     Integer editCourse(Course course);
+
+    List<Course> getAllCourseWithStudent(@Param("studentId") Integer studentId, @Param("name") String courseName);
+
+    List<Course> getAllSelectedCourse(@Param("studentId") String studentId, @Param("complete") String complete);
 }

@@ -18,4 +18,7 @@ public class Teacher {
     private String teacherRank;
     private String teacherRegister;
     private String teacherBelong;
+
+    // 以下字段不属于表 teacher
+    private String academyName;
 }

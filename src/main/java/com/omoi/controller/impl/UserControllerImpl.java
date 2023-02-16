@@ -27,13 +27,6 @@ public class UserControllerImpl implements UserController {
         return "/login";
     }
 
-    /**
-     * 登陆
-     *
-     * @param username 用户名
-     * @param password 密码
-     * @return 转发用户管理系统
-     */
     @PostMapping("/user")
     public String login(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
         User targetUser = userService.loginAuthentication(username, password);
@@ -58,11 +51,6 @@ public class UserControllerImpl implements UserController {
         }
     }
 
-    /**
-     * 登出
-     *
-     * @return 转发到登录页
-     */
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession();

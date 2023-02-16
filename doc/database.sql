@@ -53,5 +53,5 @@ create table score
     id         integer primary key autoincrement,
     course_id  int,
     student_id int,
-    score      int
+    score int default ''
 );

@@ -38,25 +38,25 @@ public class TeacherControllerImpl implements TeacherController {
     }
 
     @GetMapping("/course/{id}")
-    public String students(@PathVariable("id") String courseId, HttpServletRequest request) {
+    public String getCourseStudents(@PathVariable("id") String courseId, HttpServletRequest request) {
         request.setAttribute("course", courseId);
         return "/teacher/showStudent";
     }
 
     @GetMapping("/course/students")
     @ResponseBody
-    public List<StudentScoreDto> getStudentAndScoreByCourseId(String courseId){
+    public List<StudentScoreDto> getStudentAndScoreByCourseId(String courseId) {
         return teacherService.getStudentScoreByCourseId(courseId);
     }
 
     @PostMapping("/score")
     @ResponseBody
-    public MessageDto setStudentScore(@RequestBody StudentScoreDto studentScore){
+    public MessageDto setStudentScore(@RequestBody StudentScoreDto studentScore) {
         return teacherService.setStudentScore(studentScore);
     }
 
     @PostMapping("/password")
-    public String changeAccountPassword(@RequestParam(value = "password") String password, HttpServletRequest request){
+    public String changeAccountPassword(@RequestParam(value = "password") String password, HttpServletRequest request) {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("current");
         String username = currentUser.getUsername();

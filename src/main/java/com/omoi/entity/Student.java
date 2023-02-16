@@ -16,4 +16,7 @@ public class Student {
     private String studentBirthday;
     private String studentRegister;
     private String studentBelong;
+
+    // 以下字段不属于表 student
+    private String academyName;
 }

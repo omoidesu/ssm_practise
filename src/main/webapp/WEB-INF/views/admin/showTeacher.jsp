@@ -130,7 +130,7 @@
                 {field: "teacherEducation", title: "学历"},
                 {field: "teacherRank", title: "职称"},
                 {field: "teacherRegister", title: "入职年份"},
-                {field: "teacherBelong", title: "学院", sortable: true},
+                {field: "academyName", title: "学院", sortable: true},
                 {field: "teacherId", title: "操作", formatter: operate},
             ]
         })

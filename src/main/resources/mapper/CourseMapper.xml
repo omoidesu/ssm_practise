@@ -10,9 +10,13 @@
                course_times,
                course_type,
                course_point,
-               teacher_id,
-               course_belong
+               course.teacher_id teacherId,
+               course_belong,
+               academy_name,
+               teacher_name
         from course
+                 left join academy on course.course_belong = academy_id
+                 left join teacher t on course.teacher_id = t.teacher_id
     </sql>
     <insert id="addNewCourse">
         insert into course
@@ -54,5 +58,55 @@
                 and course_name like '%'||#{courseName}||'%'
             </if>
         </where>
+    </select>
+    <select id="getAllCourseWithStudent" resultType="com.omoi.entity.Course">
+        select course_id,
+        course_name,
+        course_date,
+        course_address,
+        course_times,
+        course_type,
+        course_point,
+        course.teacher_id teacherId,
+        course_belong,
+        academy_name,
+        teacher_name,
+        iif(course_id in (select course_id from score where student_id = #{studentId}), 1, 0) selected
+        from course left join academy on course_belong = academy_id left join teacher t on course.teacher_id =
+        t.teacher_id
+        <where>
+            <if test="name != null and name != ''">
+                course_name like '%'||#{name}||'%'
+            </if>
+        </where>
+    </select>
+    <select id="getAllSelectedCourse" resultType="com.omoi.entity.Course">
+        select c.course_id courseId,
+        course_name,
+        course_date,
+        course_address,
+        course_times,
+        course_type,
+        course_point,
+        c.teacher_id teacherId,
+        course_belong,
+        academy_name,
+        teacher_name
+        <if test="complete != null">
+            , s.score score
+        </if>
+        from course c
+        left join score s on c.course_id = s.course_id left join academy on course_belong = academy_id left join teacher
+        t on c.teacher_id = t.teacher_id
+        where s.student_id = #{studentId}
+        <choose>
+            <when test="complete == null">
+                and s.score = ''
+            </when>
+            <otherwise>
+                and s.score != ''
+            </otherwise>
+        </choose>
+
     </select>
 </mapper>

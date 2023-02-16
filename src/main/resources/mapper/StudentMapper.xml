@@ -3,8 +3,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.omoi.mapper.StudentMapper">
     <sql id="all_fields">
-        select s.student_id, student_name, student_gender, student_birthday, student_register, student_belong
+        select s.student_id,
+               student_name,
+               student_gender,
+               student_birthday,
+               student_register,
+               student_belong,
+               academy_name
         from student s
+                 left join academy on s.student_belong = academy_id
     </sql>
     <insert id="addNewStudent">
         insert into student
@@ -28,15 +35,18 @@
 
     <select id="getStudents" resultType="com.omoi.entity.Student">
         <include refid="all_fields"/>
-        where 1=1
-        <if test="studentName != null">
-            and student_name like '%'||#{studentName}||'%'
-        </if>
+        <where>
+            <if test="studentName != null">
+                and student_name like '%'||#{studentName}||'%'
+            </if>
+        </where>
     </select>
     <select id="getStudentsByCourse" resultType="com.omoi.entity.Student">
-        select s.student_id, student_name, student_gender, student_birthday, student_register, student_belong
+        select s.student_id, student_name, student_gender, student_birthday, student_register, student_belong,
+        academy_name
         from score c
         left join student s on c.student_id = s.student_id
+        left join academy on s.student_belong = academy_id
         where c.course_id = #{courseId}
         <if test="studentName != null">
             and student_name like '%'||#{studentName}||'%'

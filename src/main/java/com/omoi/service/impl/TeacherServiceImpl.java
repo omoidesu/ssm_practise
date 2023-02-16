@@ -3,7 +3,6 @@ package com.omoi.service.impl;
 import com.omoi.constant.MessageCode;
 import com.omoi.dto.MessageDto;
 import com.omoi.dto.StudentScoreDto;
-import com.omoi.entity.User;
 import com.omoi.mapper.ScoreMapper;
 import com.omoi.mapper.UserMapper;
 import com.omoi.service.CommonService;
@@ -32,7 +31,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public List<StudentScoreDto> getStudentScoreByCourseId(String courseId) {
         List<StudentScoreDto> studentScore = scoreMapper.getStudentScoreByCourseId(Integer.parseInt(courseId));
-        return studentScore.stream().peek(x -> x.setScore(x.getScore() == null ? "未打分" : x.getScore())).collect(Collectors.toList());
+        return studentScore.stream().peek(x -> x.setScore(x.getScore() == null || "".equals(x.getScore()) ? "未打分" : x.getScore())).collect(Collectors.toList());
     }
 
     @Override

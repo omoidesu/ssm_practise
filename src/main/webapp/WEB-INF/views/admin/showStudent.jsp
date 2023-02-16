@@ -121,7 +121,7 @@
                 {field: "studentGender", title: "性别"},
                 {field: "studentBirthday", title: "出生年份"},
                 {field: "studentRegister", title: "入学时间"},
-                {field: "studentBelong", title: "学院", sortable: true},
+                {field: "academyName", title: "学院", sortable: true},
                 {field: "studentId", title: "操作", formatter: operate},
             ]
         })

@@ -153,9 +153,9 @@
                 paginationLoop: false,
                 uniqueId: "courseId",
                 columns: [
-                    {field: "studentId", title: "学号", sortable: true},
+                    {field: "studentId", title: "学号"},
                     {field: "studentName", title: "姓名"},
-                    {field: "score", title: "分数", sortable: true},
+                    {field: "score", title: "分数"},
                     {field: "studentId", title: "操作", formatter: operate},
                 ]
             })
@@ -171,7 +171,7 @@
         if (row.score === "未打分") {
             return "<button class='btn btn-primary' onclick='detail(" + JSON.stringify(row) + ")'>打分</button>"
         } else {
-            return "已打分"
+            return "<button class='btn btn-primary' disabled>已打分</button>"
         }
     }
 
