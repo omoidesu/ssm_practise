@@ -23,7 +23,7 @@ for table in tables:
 
     for row in result:
         datas = ", ".join(map(str, [item if isinstance(item, int) else f"'{item}'" for item in row]))
-        text += f"insert into {table} values ({datas});\n"
+        text += f"insert into {table} values ({datas.replace('None', '')});\n"
 
     text += "\n"
 
