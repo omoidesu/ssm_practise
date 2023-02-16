@@ -51,8 +51,12 @@ public class TeacherControllerImpl implements TeacherController {
 
     @PostMapping("/score")
     @ResponseBody
-    public MessageDto setStudentScore(@RequestBody StudentScoreDto studentScore) {
-        return teacherService.setStudentScore(studentScore);
+    public MessageDto setStudentScore(@RequestBody StudentScoreDto studentScore, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User current = (User) session.getAttribute("current");
+        String teacherId = current.getUsername();
+
+        return teacherService.setStudentScore(studentScore, teacherId);
     }
 
     @PostMapping("/password")

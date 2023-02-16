@@ -35,7 +35,7 @@ public interface TeacherController {
      * @param studentScore 包含学生成绩和成绩的对象
      * @return 返回前端的消息
      */
-    MessageDto setStudentScore(StudentScoreDto studentScore);
+    MessageDto setStudentScore(StudentScoreDto studentScore, HttpServletRequest request);
 
     /**
      * 修改账号密码

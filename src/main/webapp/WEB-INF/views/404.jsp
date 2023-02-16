@@ -12,5 +12,7 @@
 </head>
 <body>
 <h1>404</h1>
+<p>用户不存在或权限不足</p>
+<p>点击<a href="/logout">这里</a>跳转到登录页</p>
 </body>
 </html>

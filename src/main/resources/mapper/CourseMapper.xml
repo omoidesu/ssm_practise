@@ -52,7 +52,7 @@
         <include refid="all_field"/>
         <where>
             <if test="teacherId != null and teacherId != 0">
-                and teacher_id = #{teacherId}
+                and course.teacher_id = #{teacherId}
             </if>
             <if test="courseName != null and courseName != ''">
                 and course_name like '%'||#{courseName}||'%'

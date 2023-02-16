@@ -2,6 +2,7 @@ package com.omoi.service.impl;
 
 import com.omoi.constant.Gender;
 import com.omoi.constant.MessageCode;
+import com.omoi.constant.UserRole;
 import com.omoi.dto.MessageDto;
 import com.omoi.entity.Course;
 import com.omoi.entity.Student;
@@ -124,7 +125,13 @@ public class AdminServiceImpl implements AdminService {
             User user = userMapper.getUserByUsername(username);
             message.setCode(MessageCode.SUCCESS);
             message.setMsg("success");
-            message.setData(user != null ? "exist" : "not exist");
+            if (user == null) {
+                message.setData("not exist");
+            } else if (user.getRole() == UserRole.ADMIN) {
+                message.setData("is admin");
+            } else {
+                message.setData("exist");
+            }
         } catch (Exception e) {
             message.setCode(MessageCode.ERROR);
             message.setMsg(e.getMessage());

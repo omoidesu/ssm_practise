@@ -153,12 +153,17 @@
             if (result.code === 1 && result.data === "exist") {
                 usernameHint.text("⭕该用户存在").css("color", "green")
                 usernameFlag = true
-                changeSubmitBtnEnable()
             } else if (result.code === 1 && result.data === "not exist") {
                 usernameHint.text("❌该用户不存在").css("color", "red")
                 usernameFlag = false
-                changeSubmitBtnEnable()
+            } else if (result.code === 1 && result.data === "is admin") {
+                usernameHint.text("❌该用户是管理员").css("color", "red")
+                usernameFlag = false
+            } else {
+                usernameHint.text("❌后台出错").css("color", "red")
+                usernameFlag = false
             }
+            changeSubmitBtnEnable()
         })
     })
 

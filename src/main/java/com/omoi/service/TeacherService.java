@@ -12,7 +12,7 @@ import java.util.List;
 public interface TeacherService {
     List<StudentScoreDto> getStudentScoreByCourseId(String courseId);
 
-    MessageDto setStudentScore(StudentScoreDto studentScore);
+    MessageDto setStudentScore(StudentScoreDto studentScore, String teacherId);
 
     MessageDto changePassword(String username, String password);
 }

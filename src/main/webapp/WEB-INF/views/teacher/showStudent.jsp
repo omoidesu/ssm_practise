@@ -203,6 +203,9 @@
                 if (result.code === 1) {
                     $("#scoreDetail").modal("hide")
                     refreshTable()
+                } else if (result.code === 0) {
+                    $("#scoreDetail").modal("hide")
+                    alert(result.msg)
                 }
             }
         })
