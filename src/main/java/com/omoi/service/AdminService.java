@@ -12,15 +12,15 @@ import com.omoi.entity.Teacher;
 public interface AdminService {
     MessageDto deleteCourse(Integer courseId);
 
-    void editCourse(Course course);
+    void editCourse(Course course, String fromPage);
 
     MessageDto deleteStudent(Integer studentId);
 
-    void editStudent(Student student);
+    void editStudent(Student student, String fromPage);
 
     MessageDto deleteTeacher(Integer teacherId);
 
-    void editTeacher(Teacher teacher);
+    void editTeacher(Teacher teacher, String fromPage);
 
     MessageDto changePassword(String username, String password);
 

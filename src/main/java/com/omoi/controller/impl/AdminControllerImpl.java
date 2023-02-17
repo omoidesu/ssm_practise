@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 import java.util.Map;
 
 @RequestMapping("/admin")
@@ -92,13 +93,15 @@ public class AdminControllerImpl implements AdminController {
                 .courseType(params.get("courseType"))
                 .courseBelong(params.get("courseBelong"))
                 .coursePoint(params.get("coursePoint")).build();
-        adminService.editCourse(course);
+        adminService.editCourse(course, null);
         return "/admin/showCourse";
     }
 
     @PostMapping("/course")
-    public String editCourse(Course course) {
-        adminService.editCourse(course);
+    public String editCourse(Course course, HttpServletRequest request) {
+        String fromPage = getRequestFrom(request);
+
+        adminService.editCourse(course, fromPage);
         return "/admin/showCourse";
     }
 
@@ -128,13 +131,15 @@ public class AdminControllerImpl implements AdminController {
                 .studentBirthday(params.get("studentBirthday"))
                 .studentRegister(params.get("studentRegister"))
                 .studentBelong(params.get("studentBelong")).build();
-        adminService.editStudent(student);
+        adminService.editStudent(student, null);
         return "/admin/showStudent";
     }
 
     @PostMapping("/student")
-    public String editStudent(Student student) {
-        adminService.editStudent(student);
+    public String editStudent(Student student, HttpServletRequest request) {
+        String fromPage = getRequestFrom(request);
+
+        adminService.editStudent(student, fromPage);
         return "/admin/showStudent";
     }
 
@@ -166,13 +171,15 @@ public class AdminControllerImpl implements AdminController {
                 .teacherRank(params.get("teacherRank"))
                 .teacherRegister(params.get("teacherRegister"))
                 .teacherBelong(params.get("teacherBelong")).build();
-        adminService.editTeacher(teacher);
+        adminService.editTeacher(teacher, null);
         return "/admin/showTeacher";
     }
 
     @PostMapping("/teacher")
-    public String editTeacher(Teacher teacher) {
-        adminService.editTeacher(teacher);
+    public String editTeacher(Teacher teacher, HttpServletRequest request) {
+        String fromPage = getRequestFrom(request);
+
+        adminService.editTeacher(teacher, fromPage);
         return "/admin/showTeacher";
     }
 
@@ -216,5 +223,10 @@ public class AdminControllerImpl implements AdminController {
     @ResponseBody
     public MessageDto userIfExist(String username) {
         return adminService.userExist(username);
+    }
+
+    private String getRequestFrom(HttpServletRequest request) {
+        String referer = request.getHeader("referer");
+        return referer.split("admin")[1];
     }
 }

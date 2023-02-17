@@ -155,7 +155,9 @@
             url: "/admin/course?courseId=" + id,
             type: "delete",
             success: function (result) {
-                console.log(result.msg)
+                if (result.code === 0) {
+                    alert(result.msg)
+                }
                 refreshTable()
             },
             error: function () {

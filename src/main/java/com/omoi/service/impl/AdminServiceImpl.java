@@ -4,18 +4,19 @@ import com.omoi.constant.Gender;
 import com.omoi.constant.MessageCode;
 import com.omoi.constant.UserRole;
 import com.omoi.dto.MessageDto;
+import com.omoi.dto.StudentScoreDto;
 import com.omoi.entity.Course;
 import com.omoi.entity.Student;
 import com.omoi.entity.Teacher;
 import com.omoi.entity.User;
-import com.omoi.mapper.CourseMapper;
-import com.omoi.mapper.StudentMapper;
-import com.omoi.mapper.TeacherMapper;
-import com.omoi.mapper.UserMapper;
+import com.omoi.mapper.*;
 import com.omoi.service.AdminService;
 import com.omoi.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author xingj
@@ -27,22 +28,34 @@ public class AdminServiceImpl implements AdminService {
     private final StudentMapper studentMapper;
     private final TeacherMapper teacherMapper;
     private final UserMapper userMapper;
+    private final ScoreMapper scoreMapper;
 
     @Autowired
-    public AdminServiceImpl(CourseMapper courseMapper, StudentMapper studentMapper, TeacherMapper teacherMapper, UserMapper userMapper) {
+    public AdminServiceImpl(CourseMapper courseMapper, StudentMapper studentMapper, TeacherMapper teacherMapper, UserMapper userMapper, ScoreMapper scoreMapper) {
         this.courseMapper = courseMapper;
         this.studentMapper = studentMapper;
         this.teacherMapper = teacherMapper;
         this.userMapper = userMapper;
+        this.scoreMapper = scoreMapper;
     }
 
     @Override
     public MessageDto deleteCourse(Integer courseId) {
         MessageDto message = new MessageDto();
+
+        List<StudentScoreDto> score = scoreMapper.getStudentScoreByCourseId(courseId);
+        List<String> scores = score.stream().map(StudentScoreDto::getScore).filter(x -> !"".equals(x)).collect(Collectors.toList());
+
+        if (scores.size() != 0) {
+            message.setCode(MessageCode.ERROR);
+            message.setMsg("该课程已有学生完成");
+            return message;
+        }
+
         try {
             Integer i = courseMapper.deleteCourseById(courseId);
             message.setCode(i == 1 ? MessageCode.SUCCESS : MessageCode.ERROR);
-            message.setMsg(i == 1 ? "success" : "unknown error");
+            message.setMsg(i == 1 ? "success" : "sql error");
         } catch (Exception e) {
             message.setCode(MessageCode.ERROR);
             message.setMsg(e.getMessage());
@@ -51,14 +64,17 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void editCourse(Course course) {
-        Course tempCourse = courseMapper.getCourseById(Integer.parseInt(course.getCourseId()));
-
-        if (tempCourse != null) {
-            courseMapper.editCourse(course);
-        } else {
-            courseMapper.addNewCourse(course);
+    public void editCourse(Course course, String fromPage) {
+        if ("/addCourse".equals(fromPage)) {
+            try {
+                courseMapper.addNewCourse(course);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return;
         }
+
+        courseMapper.editCourse(course);
     }
 
     @Override
@@ -76,15 +92,19 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void editStudent(Student student) {
+    public void editStudent(Student student, String fromPage) {
         student.setStudentGender(Integer.parseInt(student.getStudentGender()) == Gender.MALE ? "男" : "女");
-        Student tempStudent = studentMapper.getStudentById(Integer.parseInt(student.getStudentId()));
 
-        if (tempStudent != null) {
-            studentMapper.editStudent(student);
-        } else {
-            studentMapper.addNewStudent(student);
+        if ("/addStudent".equals(fromPage)) {
+            try {
+                studentMapper.addNewStudent(student);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return;
         }
+
+        studentMapper.editStudent(student);
     }
 
     @Override
@@ -102,15 +122,17 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void editTeacher(Teacher teacher) {
-        teacher.setTeacherGender(Integer.parseInt(teacher.getTeacherGender()) == Gender.MALE ? "男" : "女");
-        Teacher tempTeacher = teacherMapper.getTeacherById(Integer.parseInt(teacher.getTeacherId()));
-
-        if (tempTeacher != null) {
-            teacherMapper.editTeacher(teacher);
-        } else {
-            teacherMapper.addNewTeacher(teacher);
+    public void editTeacher(Teacher teacher, String fromPage) {
+        if ("/addTeacher".equals(fromPage)) {
+            try {
+                teacherMapper.addNewTeacher(teacher);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return;
         }
+
+        teacherMapper.editTeacher(teacher);
     }
 
     @Override

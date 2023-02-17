@@ -40,7 +40,7 @@ public interface AdminController {
      * @param course 课程内容
      * @return 转发地址
      */
-    String editCourse(Course course);
+    String editCourse(Course course, HttpServletRequest request);
 
     /**
      * 根据课程id展示课程详情
@@ -65,7 +65,7 @@ public interface AdminController {
      * @param student 学生信息
      * @return 转发地址
      */
-    String editStudent(Student student);
+    String editStudent(Student student, HttpServletRequest request);
 
     /**
      * 根据学号展示学生详情
@@ -90,7 +90,7 @@ public interface AdminController {
      * @param teacher 教师信息
      * @return 转发地址
      */
-    String editTeacher(Teacher teacher);
+    String editTeacher(Teacher teacher, HttpServletRequest request);
 
     /**
      * 根据教师工号展示教师信息
