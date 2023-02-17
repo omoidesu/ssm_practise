@@ -20,12 +20,16 @@ tables = (
 
 for table in tables:
     result = connect.execute(f"select * from {table}").fetchall()
+    text += f"insert into {table} values "
 
     for row in result:
-        datas = ", ".join(map(str, [item if isinstance(item, int) else f"'{item}'" for item in row]))
-        text += f"insert into {table} values ({datas.replace('None', '')});\n"
+        row_data = ", ".join(map(str, [item if isinstance(item, int) else f"'{item}'" for item in row]))
+        text += f"({row_data.replace('None', '')}),"
 
-    text += "\n"
+    text = text[:-1] + ";"
+    text += "\n\n"
 
 with open(output_path, "w", encoding='utf-8') as f:
     f.write(text)
+
+print("done!")
