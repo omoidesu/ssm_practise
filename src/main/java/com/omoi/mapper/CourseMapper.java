@@ -56,7 +56,21 @@ public interface CourseMapper {
      */
     Integer editCourse(Course course);
 
+    /**
+     * 根据学号获取课程及是否已选择该课程
+     *
+     * @param studentId  学号
+     * @param courseName 学生名
+     * @return 课程列表
+     */
     List<Course> getAllCourseWithStudent(@Param("studentId") Integer studentId, @Param("name") String courseName);
 
+    /**
+     * 获取所有已选课程或已修课程(即有成绩的课程)
+     *
+     * @param studentId 学号
+     * @param complete  是否为已修课程(不为null即可)
+     * @return 课程列表
+     */
     List<Course> getAllSelectedCourse(@Param("studentId") String studentId, @Param("complete") String complete);
 }

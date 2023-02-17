@@ -14,5 +14,11 @@ public interface UserMapper {
      */
     User getUserByUsername(String username);
 
+    /**
+     * 修改用户密码
+     *
+     * @param user 用户对象
+     * @return 修改行数
+     */
     Integer changePassword(User user);
 }
